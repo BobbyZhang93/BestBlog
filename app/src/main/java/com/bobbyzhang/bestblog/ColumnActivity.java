@@ -62,49 +62,6 @@ public class ColumnActivity extends AppCompatActivity {
     }
 
 
-    //改写物理按键——返回的逻辑
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if(keyCode==KeyEvent.KEYCODE_BACK)
-        {
-            if(webView.canGoBack())
-            {
-                webView.goBack();//返回上一页面
-                return true;
-            }
-            else
-            {
-                exitBy2Click(); // 调用双击退出函数
-            }
-        }
-//        return super.onKeyDown(keyCode, event);
-        return false;
-    }
 
-    /**
-     * 双击退出函数
-     */
-    private static Boolean isExit = false;
-
-
-    private void exitBy2Click() {
-        Timer tExit = null;
-        if (isExit == false) {
-            isExit = true; // 准备退出
-            Toast.makeText(this, "再按一次和我说拜拜~", Toast.LENGTH_SHORT).show();
-            tExit = new Timer();
-            tExit.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    isExit = false; // 取消退出
-                }
-            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
-
-        } else {
-            finish();
-            System.exit(0);
-        }
-    }
 
 }
