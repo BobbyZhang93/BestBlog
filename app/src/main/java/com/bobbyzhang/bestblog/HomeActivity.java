@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bobbyzhang.bestblog.base.BaseActivity;
-import com.bobbyzhang.bestblog.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.Timer;

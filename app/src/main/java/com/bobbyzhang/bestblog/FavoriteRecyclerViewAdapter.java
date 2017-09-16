@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bobbyzhang.bestblog.FavoriteFragment.OnListFragmentInteractionListener;
-import com.bobbyzhang.bestblog.dummy.DummyContent.DummyItem;
+import com.bobbyzhang.bestblog.DummyContent.DummyItem;
 
 import java.util.List;
 

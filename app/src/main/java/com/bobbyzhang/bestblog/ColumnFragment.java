@@ -10,33 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bobbyzhang.bestblog.dummy.DummyContent;
-import com.bobbyzhang.bestblog.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import com.bobbyzhang.bestblog.DummyContent.DummyItem;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * 专栏页面
  */
 public class ColumnFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 4;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ColumnFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ColumnFragment newInstance(int columnCount) {
         ColumnFragment fragment = new ColumnFragment();
