@@ -2,6 +2,7 @@ package com.bobbyzhang.bestblog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -16,23 +17,27 @@ import java.util.TimerTask;
  * Created by bumiemac001 on 2017/9/13.
  */
 
-public class ColumnActivity extends AppCompatActivity {
+public class ColumnDetailsActivity extends AppCompatActivity {
     private WebView webView;
+    private String blogUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_column);
-        Toast.makeText(getApplicationContext(),"欢迎回来！",Toast.LENGTH_SHORT).show();
-        openUrl();
+
+        blogUrl=getIntent().getStringExtra("url");
+        Log.e("@xun","111"+blogUrl);
+        openUrl(blogUrl);
     }
 
-    private void openUrl(){
+    private void openUrl(String url){
         webView = (WebView) findViewById(R.id.wv);
         webView.requestFocus();
         webView.getSettings().setJavaScriptEnabled(true);//支持js
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-        webView.loadUrl("http://blog.itbobby.top/");
+        webView.loadUrl(url);
 
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         webView.setWebViewClient(new WebViewClient(){
@@ -61,6 +66,20 @@ public class ColumnActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if(keyCode==KeyEvent.KEYCODE_BACK)
+        {
+            if(webView.canGoBack())
+            {
+                webView.goBack();//返回上一页面
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 

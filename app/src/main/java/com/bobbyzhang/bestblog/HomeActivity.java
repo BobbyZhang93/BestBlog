@@ -1,5 +1,6 @@
 package com.bobbyzhang.bestblog;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,11 +8,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bobbyzhang.bestblog.base.BaseActivity;
+import com.bobbyzhang.bestblog.bean.ColumnBean;
+import com.bobbyzhang.bestblog.utils.JsonHelper;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -29,6 +34,8 @@ public class HomeActivity extends BaseActivity implements
     private static Boolean isExit = false;
     @BindView(R.id.vp_ha)
     ViewPager vp_ha;
+
+    private JsonHelper mHelper;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,8 +66,15 @@ public class HomeActivity extends BaseActivity implements
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        mHelper=new JsonHelper();
+        String data=mHelper.ReadJson(getApplicationContext(),"bestblog_columns.json");
+        Gson mGson=new Gson();
+        ColumnBean columnBean=mGson.fromJson(data,ColumnBean.class);
+        Log.e("@xun",columnBean.getColumns().get(0).getRemark());
+
+
         final ArrayList<Fragment> fgLists = new ArrayList<>(3);
-        fgLists.add(new ColumnFragment());
+        fgLists.add(new ColumnFragment(columnBean.getColumns()));
         fgLists.add(new FavoriteFragment());
         fgLists.add(new AboutmeFragment());
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -76,6 +90,8 @@ public class HomeActivity extends BaseActivity implements
         };
         vp_ha.setAdapter(mAdapter);
         vp_ha.setOffscreenPageLimit(2); //预加载剩下两页
+
+
     }
 
 
@@ -113,13 +129,24 @@ public class HomeActivity extends BaseActivity implements
     }
 
 
+
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onFragmentInteraction(Uri uri) {
 
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onListFragmentInteraction(ColumnBean.ColumnsBean columnsBean) {
+        Intent intent=new Intent();
+        intent.setClass(HomeActivity.this,ColumnDetailsActivity.class);
+        intent.putExtra("remark",columnsBean.getRemark());
+        intent.putExtra("url",columnsBean.getUrl());
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 }

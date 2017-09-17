@@ -1,4 +1,4 @@
-package com.bobbyzhang.bestblog;
+package com.bobbyzhang.bestblog.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,21 +7,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bobbyzhang.bestblog.ColumnFragment.OnListFragmentInteractionListener;
-import com.bobbyzhang.bestblog.DummyContent.DummyItem;
+import com.bobbyzhang.bestblog.R;
+import com.bobbyzhang.bestblog.bean.ColumnBean;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ * 专栏列表适配器
  */
 public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<ColumnBean.ColumnsBean> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public ColumnRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public ColumnRecyclerViewAdapter(List<ColumnBean.ColumnsBean> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -34,10 +33,10 @@ public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+        holder.tv_remark.setText(mValues.get(position).getRemark());
+        holder.tv_url.setText(mValues.get(position).getUrl());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +44,7 @@ public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(mValues.get(position));
                 }
             }
         });
@@ -58,20 +57,21 @@ public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView tv_remark;
+        public final TextView tv_url;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tv_remark =  view.findViewById(R.id.tv_remark);
+            tv_url = view.findViewById(R.id.tv_url);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString();
         }
     }
+
+
 }

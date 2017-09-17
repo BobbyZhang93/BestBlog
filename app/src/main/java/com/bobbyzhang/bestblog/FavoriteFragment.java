@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bobbyzhang.bestblog.DummyContent.DummyItem;
+import com.bobbyzhang.bestblog.adapter.FavoriteRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.

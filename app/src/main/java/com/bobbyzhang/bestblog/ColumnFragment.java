@@ -3,14 +3,17 @@ package com.bobbyzhang.bestblog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bobbyzhang.bestblog.DummyContent.DummyItem;
+import com.bobbyzhang.bestblog.adapter.ColumnRecyclerViewAdapter;
+import com.bobbyzhang.bestblog.bean.ColumnBean;
+
+import java.util.List;
 
 /**
  * 专栏页面
@@ -18,10 +21,16 @@ import com.bobbyzhang.bestblog.DummyContent.DummyItem;
 public class ColumnFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 4;
+
     private OnListFragmentInteractionListener mListener;
+    private List mList;
 
     public ColumnFragment() {
+    }
+
+    public ColumnFragment(List columnList) {
+        this.mList=columnList;
+
     }
 
     @SuppressWarnings("unused")
@@ -37,9 +46,6 @@ public class ColumnFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -51,12 +57,8 @@ public class ColumnFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ColumnRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new ColumnRecyclerViewAdapter(mList, mListener));
         }
         return view;
     }
@@ -79,6 +81,7 @@ public class ColumnFragment extends Fragment {
         mListener = null;
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -91,6 +94,6 @@ public class ColumnFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(ColumnBean.ColumnsBean columnsBean);
     }
 }

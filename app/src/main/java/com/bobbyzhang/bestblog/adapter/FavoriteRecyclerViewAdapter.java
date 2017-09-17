@@ -1,4 +1,4 @@
-package com.bobbyzhang.bestblog;
+package com.bobbyzhang.bestblog.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bobbyzhang.bestblog.FavoriteFragment.OnListFragmentInteractionListener;
 import com.bobbyzhang.bestblog.DummyContent.DummyItem;
+import com.bobbyzhang.bestblog.R;
 
 import java.util.List;
 
