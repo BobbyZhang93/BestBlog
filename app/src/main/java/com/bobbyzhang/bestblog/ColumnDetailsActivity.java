@@ -2,6 +2,7 @@ package com.bobbyzhang.bestblog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -16,23 +17,27 @@ import java.util.TimerTask;
  * Created by bumiemac001 on 2017/9/13.
  */
 
-public class ColumnActivity extends AppCompatActivity {
+public class ColumnDetailsActivity extends AppCompatActivity {
     private WebView webView;
+    private String blogUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_column);
-        Toast.makeText(getApplicationContext(),"欢迎回来！",Toast.LENGTH_SHORT).show();
-        openUrl();
+
+        blogUrl=getIntent().getStringExtra("url");
+        Log.e("@xun","111"+blogUrl);
+        openUrl(blogUrl);
     }
 
-    private void openUrl(){
+    private void openUrl(String url){
         webView = (WebView) findViewById(R.id.wv);
         webView.requestFocus();
         webView.getSettings().setJavaScriptEnabled(true);//支持js
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-        webView.loadUrl("http://blog.itbobby.top/");
+        webView.loadUrl(url);
 
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         webView.setWebViewClient(new WebViewClient(){
@@ -62,7 +67,6 @@ public class ColumnActivity extends AppCompatActivity {
     }
 
 
-    //改写物理按键——返回的逻辑
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -73,38 +77,10 @@ public class ColumnActivity extends AppCompatActivity {
                 webView.goBack();//返回上一页面
                 return true;
             }
-            else
-            {
-                exitBy2Click(); // 调用双击退出函数
-            }
         }
-//        return super.onKeyDown(keyCode, event);
-        return false;
+        return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * 双击退出函数
-     */
-    private static Boolean isExit = false;
 
-
-    private void exitBy2Click() {
-        Timer tExit = null;
-        if (isExit == false) {
-            isExit = true; // 准备退出
-            Toast.makeText(this, "再按一次和我说拜拜~", Toast.LENGTH_SHORT).show();
-            tExit = new Timer();
-            tExit.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    isExit = false; // 取消退出
-                }
-            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
-
-        } else {
-            finish();
-            System.exit(0);
-        }
-    }
 
 }

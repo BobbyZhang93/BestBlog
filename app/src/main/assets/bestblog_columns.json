@@ -1,0 +1,22 @@
+{
+    "columns": [
+        {
+            "uuid": "550e8400-e29b-41d4-a716-446655440000",
+            "url": "http://blog.itbobby.top/",
+            "remark": "BobbyZhang的博客",
+            "isstart": "1"
+        },
+        {
+            "uuid": "680e8400-e29b-41d4-a716-446655440111",
+            "url": "http://stormzhang.com/posts/",
+            "remark": "stormzhang做好现在的事！",
+            "isstart": "0"
+        },
+        {
+            "uuid": "890e8400-e29b-41d4-a716-446655442222",
+            "url": "http://www.jackywang.tech/",
+            "remark": "墨镜猫",
+            "isstart": "0"
+        }
+    ]
+}

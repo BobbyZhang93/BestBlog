@@ -1,4 +1,4 @@
-package com.bobbyzhang.bestblog.dummy;
+package com.bobbyzhang.bestblog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
