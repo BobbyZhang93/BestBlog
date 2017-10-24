@@ -5,11 +5,19 @@
     android:layout_height="match_parent"
     >
 
-        <WebView
-            android:id="@+id/wv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srf_ac"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </WebView>
+                <WebView
+                    android:id="@+id/wv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </WebView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

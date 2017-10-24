@@ -1,6 +1,7 @@
 package com.bobbyzhang.bestblog;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,15 +18,22 @@ import java.util.TimerTask;
  * Created by bumiemac001 on 2017/9/13.
  */
 
-public class ColumnDetailsActivity extends AppCompatActivity {
+public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private WebView webView;
     private String blogUrl;
+    private static final String TAG="@xun";
+    SwipeRefreshLayout srf_ac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_column);
+        srf_ac= (SwipeRefreshLayout) findViewById(R.id.srf_ac);
+        srf_ac.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+
+        srf_ac.setOnRefreshListener(this);
+        srf_ac.setRefreshing(true);
 
         blogUrl=getIntent().getStringExtra("url");
         Log.e("@xun","111"+blogUrl);
@@ -57,9 +65,11 @@ public class ColumnDetailsActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (newProgress == 100) {
                     // 网页加载完成
+                    Log.e(TAG,"完成");
+                    srf_ac.setRefreshing(false);
                 } else {
                     // 加载中
-
+                    Log.e(TAG,"加载中");
                 }
 
             }
@@ -82,5 +92,13 @@ public class ColumnDetailsActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onRefresh() {
+        srf_ac.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srf_ac.setRefreshing(false);
+            }
+        }, 2000);
+    }
 }

@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ColumnDetailsActivity" />
+        <activity android:name=".ColumnDetailsActivity"
+            android:theme="@style/AppTheme.NoBar"/>
         <activity
             android:name=".AddActivity"
             android:label="@string/title_activity_add"></activity>
