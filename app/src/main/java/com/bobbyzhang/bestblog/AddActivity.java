@@ -3,34 +3,37 @@ package com.bobbyzhang.bestblog;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bobbyzhang.bestblog.utils.NetHelper;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -57,21 +60,24 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private View pb_au;
+    private View ll_au;
+    private NetHelper mNetHelper;
+    @BindView(R.id.et_au_remark)
+    EditText et_au_remark;
+    @BindView(R.id.atv_au_url)
+    AutoCompleteTextView atv_au_url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        ButterKnife.bind(this);
+        mNetHelper=new NetHelper();
+
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        et_au_remark.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -82,16 +88,16 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+//        Button bt_au_testurl = (Button) findViewById(R.id.bt_au_testurl);
+//        bt_au_testurl.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                attemptLogin();
+//            }
+//        });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        ll_au = findViewById(R.id.ll_au);
+        pb_au = findViewById(R.id.pb_au);
     }
 
     private void populateAutoComplete() {
@@ -110,7 +116,7 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, "", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(atv_au_url, "", Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -149,31 +155,31 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         }
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        atv_au_url.setError(null);
+        et_au_remark.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = atv_au_url.getText().toString();
+        String password = et_au_remark.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError("");
-            focusView = mPasswordView;
+            et_au_remark.setError("");
+            focusView = et_au_remark;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError("");
-            focusView = mEmailView;
+            atv_au_url.setError("");
+            focusView = atv_au_url;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError("");
-            focusView = mEmailView;
+            atv_au_url.setError("");
+            focusView = atv_au_url;
             cancel = true;
         }
 
@@ -211,28 +217,28 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+            ll_au.setVisibility(show ? View.GONE : View.VISIBLE);
+            ll_au.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    ll_au.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
+            pb_au.setVisibility(show ? View.VISIBLE : View.GONE);
+            pb_au.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    pb_au.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            pb_au.setVisibility(show ? View.VISIBLE : View.GONE);
+            ll_au.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -276,7 +282,7 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
                 new ArrayAdapter<>(AddActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        atv_au_url.setAdapter(adapter);
     }
 
 
@@ -335,8 +341,8 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError("");
-                mPasswordView.requestFocus();
+                et_au_remark.setError("");
+                et_au_remark.requestFocus();
             }
         }
 
@@ -344,6 +350,27 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+
+    @OnClick({R.id.bt_au_testurl,R.id.bt_au_submit})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.bt_au_testurl:
+//                if (mNetHelper.checkNetWorkStatus(getApplicationContext())){
+//                    Snackbar.make(ll_au,"网络错误",Snackbar.LENGTH_SHORT).show();
+//                }else {
+//                    if (mNetHelper.checkURL(et_au_remark.getText().toString())){
+//                        Snackbar.make(ll_au,"链接正确",Snackbar.LENGTH_SHORT).show();
+//                    }else {
+//                        Snackbar.make(ll_au,"链接有误请重新输入",Snackbar.LENGTH_SHORT).show();
+//                    }
+//                }
+                Log.e("@xunaaa",atv_au_url.getText().toString());
+//                mNetHelper.checkURL(atv_au_url.getText().toString());
+                break;
+            case R.id.bt_au_submit:
+                break;
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.bobbyzhang.bestblog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AboutmeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AboutmeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
 public class AboutmeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,19 +25,12 @@ public class AboutmeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+
     public AboutmeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AboutmeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AboutmeFragment newInstance(String param1, String param2) {
         AboutmeFragment fragment = new AboutmeFragment();
         Bundle args = new Bundle();
@@ -63,7 +53,11 @@ public class AboutmeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_aboutme, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_aboutme, container, false);
+        //返回一个Unbinder值（进行解绑），注意这里的this不能使用getActivity()
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,18 +84,24 @@ public class AboutmeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @OnClick({R.id.bt_fa_toadd,R.id.tv_fa_version})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.bt_fa_toadd:
+                Intent intent01=new Intent(getActivity(),AddActivity.class);
+                startActivity(intent01);
+                break;
+            case R.id.tv_fa_version:
+                Intent intent02=new Intent(getActivity(),ColumnDetailsActivity.class);
+                intent02.putExtra("remark","about BestBlog");
+                intent02.putExtra("url","https://github.com/BobbyZhang93/BestBlog");
+                startActivity(intent02);
+                break;
+        }
     }
 }

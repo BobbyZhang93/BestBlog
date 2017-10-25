@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/srf_ac"
@@ -17,7 +17,84 @@
 
                 </WebView>
 
+
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_fabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            app:layout_anchor="@+id/srf_ac"
+            app:layout_anchorGravity="bottom|right"
+            android:visibility="gone">
 
-</LinearLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/colorAccent"
+                    app:fabSize="mini"
+                    app:rippleColor="@color/colorPrimary"
+                    app:srcCompat="@mipmap/up" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/fab_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            app:backgroundTint="@color/colorAccent"
+                            app:fabSize="mini"
+                            app:rippleColor="@color/colorPrimary"
+                            app:srcCompat="@mipmap/start" />
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/fab_startok"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            app:backgroundTint="@color/colorAccent"
+                            app:fabSize="mini"
+                            app:rippleColor="@color/colorPrimary"
+                            app:srcCompat="@mipmap/startok"
+                            android:visibility="gone"/>
+                </FrameLayout>
+
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/colorAccent"
+                    app:fabSize="mini"
+                    app:rippleColor="@color/colorPrimary"
+                    app:srcCompat="@mipmap/home" />
+        </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
