@@ -1,47 +1,60 @@
 package com.bobbyzhang.bestblog;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by bumiemac001 on 2017/9/13.
  */
 
-public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
-    private WebView webView;
+public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
+{
+    @BindView(R.id.wv)
+    WebView webView;
+    @BindView(R.id.srf_ac)
+    SwipeRefreshLayout srf_ac;
+    @BindView(R.id.ll_fabs)
+    LinearLayout ll_fabs;
+    @BindView(R.id.fab_start)
+    FloatingActionButton fab_start;
+    @BindView(R.id.fab_startok)
+    FloatingActionButton fab_startok;
+
     private String blogUrl;
     private static final String TAG="@xun";
-    SwipeRefreshLayout srf_ac;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_column);
-        srf_ac= (SwipeRefreshLayout) findViewById(R.id.srf_ac);
-        srf_ac.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+        ButterKnife.bind(this);
 
+        srf_ac.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
         srf_ac.setOnRefreshListener(this);
         srf_ac.setRefreshing(true);
 
         blogUrl=getIntent().getStringExtra("url");
-        Log.e("@xun","111"+blogUrl);
+        Log.e("@xun","address:"+blogUrl);
         openUrl(blogUrl);
     }
 
     private void openUrl(String url){
-        webView = (WebView) findViewById(R.id.wv);
         webView.requestFocus();
         webView.getSettings().setJavaScriptEnabled(true);//支持js
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -66,12 +79,19 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
                 if (newProgress == 100) {
                     // 网页加载完成
                     Log.e(TAG,"完成");
+                    ll_fabs.setVisibility(View.VISIBLE);
                     srf_ac.setRefreshing(false);
                 } else {
                     // 加载中
                     Log.e(TAG,"加载中");
                 }
 
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                Log.e(TAG,"title:" +title);
             }
         });
     }
@@ -101,4 +121,28 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
             }
         }, 2000);
     }
+
+
+    @OnClick({R.id.fab_home,R.id.fab_start,R.id.fab_startok,
+            R.id.fab_up})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.fab_home:
+                finish();
+                break;
+            case R.id.fab_start:
+                fab_startok.setVisibility(View.VISIBLE);
+                fab_start.setVisibility(View.GONE);
+                break;
+            case R.id.fab_startok:
+                fab_start.setVisibility(View.VISIBLE);
+                fab_startok.setVisibility(View.GONE);
+                break;
+            case R.id.fab_up:
+                webView.scrollTo(0,0);
+                break;
+        }
+    }
+
+
 }

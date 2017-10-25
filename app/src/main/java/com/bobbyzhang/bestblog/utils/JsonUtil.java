@@ -3,6 +3,7 @@ package com.bobbyzhang.bestblog.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,7 +11,7 @@ import java.io.InputStream;
  * Created by BobbyZhang on 2017/9/16.
  */
 
-public class JsonHelper {
+public class JsonUtil {
 
     public String ReadJson(Context context,String fileName){
         Context mContext;
@@ -36,4 +37,6 @@ public class JsonHelper {
         }
         return jsonResult;
     }
+
+
 }

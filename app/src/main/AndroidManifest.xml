@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -25,11 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ColumnDetailsActivity"
-            android:theme="@style/AppTheme.NoBar"/>
+        <activity
+            android:name=".ColumnDetailsActivity"
+            android:theme="@style/AppTheme.NoBar" />
         <activity
             android:name=".AddActivity"
-            android:label="@string/title_activity_add"></activity>
+            android:label="@string/title_activity_add" />
     </application>
 
 </manifest>

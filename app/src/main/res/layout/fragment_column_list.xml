@@ -11,4 +11,4 @@
     android:background="@color/background"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.bobbyzhang.bestblog.ColumnFragment"
-    tools:listitem="@layout/fragment_column" />
+    tools:listitem="@layout/item_column" />
