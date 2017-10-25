@@ -36,7 +36,7 @@
                     android:id="@+id/atv_au_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="博客首页地址"
+                    android:hint="专栏地址"
                     android:inputType="textUri"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -51,7 +51,7 @@
                     android:id="@+id/et_au_remark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="输入标题或自定义备注"
+                    android:hint="专栏标题或自定义备注"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -75,8 +75,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="提交博客"
-                android:textStyle="bold" />
+                android:text="提交地址"
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

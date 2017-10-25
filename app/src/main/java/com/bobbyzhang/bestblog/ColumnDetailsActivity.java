@@ -87,6 +87,12 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
                 }
 
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                Log.e(TAG,"title:" +title);
+            }
         });
     }
 

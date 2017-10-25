@@ -17,16 +17,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bobbyzhang.bestblog.utils.NetHelper;
+import com.bobbyzhang.bestblog.utils.NetUtil;
+import com.bobbyzhang.bestblog.utils.SnackbarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,18 +63,20 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
     // UI references.
     private View pb_au;
     private View ll_au;
-    private NetHelper mNetHelper;
+    private NetUtil mNetUtil;
     @BindView(R.id.et_au_remark)
     EditText et_au_remark;
     @BindView(R.id.atv_au_url)
     AutoCompleteTextView atv_au_url;
+    @BindView(R.id.bt_au_submit)
+    Button bt_au_submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
-        mNetHelper=new NetHelper();
+        mNetUtil =new NetUtil();
 
         populateAutoComplete();
 
@@ -357,17 +360,29 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_au_testurl:
-//                if (mNetHelper.checkNetWorkStatus(getApplicationContext())){
-//                    Snackbar.make(ll_au,"网络错误",Snackbar.LENGTH_SHORT).show();
-//                }else {
-//                    if (mNetHelper.checkURL(et_au_remark.getText().toString())){
-//                        Snackbar.make(ll_au,"链接正确",Snackbar.LENGTH_SHORT).show();
-//                    }else {
-//                        Snackbar.make(ll_au,"链接有误请重新输入",Snackbar.LENGTH_SHORT).show();
-//                    }
-//                }
-                Log.e("@xunaaa",atv_au_url.getText().toString());
-//                mNetHelper.checkURL(atv_au_url.getText().toString());
+                if (!mNetUtil.checkNetWorkStatus(getApplicationContext())){
+                    SnackbarUtil.ShortSnackbar(ll_au,"网络错误",SnackbarUtil.Info).show();
+                }else {
+                    final boolean[] isNetok = new boolean[1];
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                             isNetok[0] = mNetUtil.checkURL(atv_au_url.getText().toString());
+                            if (isNetok[0]){
+                                SnackbarUtil.ShortSnackbar(ll_au,"链接正确",SnackbarUtil.Info).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bt_au_submit.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }else {
+                                SnackbarUtil.ShortSnackbar(ll_au,"链接有误请重新输入",SnackbarUtil.Info).show();
+                            }
+                        }
+                    }).start();
+
+                }
                 break;
             case R.id.bt_au_submit:
                 break;

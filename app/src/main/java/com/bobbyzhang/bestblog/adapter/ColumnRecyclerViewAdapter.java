@@ -28,7 +28,7 @@ public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_column, parent, false);
+                .inflate(R.layout.item_column, parent, false);
         return new ViewHolder(view);
     }
 

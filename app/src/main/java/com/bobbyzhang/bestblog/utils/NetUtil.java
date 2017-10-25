@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by BobbyZhang on 2017/10/24.
  */
 
-public class NetHelper {
+public class NetUtil {
     private static final String TAG="@xun";
 
     public void NetHelper(){

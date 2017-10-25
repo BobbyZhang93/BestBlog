@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.bobbyzhang.bestblog.base.BaseActivity;
 import com.bobbyzhang.bestblog.bean.ColumnBean;
-import com.bobbyzhang.bestblog.utils.JsonHelper;
+import com.bobbyzhang.bestblog.utils.JsonUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class HomeActivity extends BaseActivity implements
     @BindView(R.id.vp_ha)
     ViewPager vp_ha;
 
-    private JsonHelper mHelper;
+    private JsonUtil mHelper;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,7 +66,7 @@ public class HomeActivity extends BaseActivity implements
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mHelper=new JsonHelper();
+        mHelper=new JsonUtil();
         String data=mHelper.ReadJson(getApplicationContext(),"bestblog_columns.json");
         Gson mGson=new Gson();
         ColumnBean columnBean=mGson.fromJson(data,ColumnBean.class);
