@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bobbyzhang.bestblog.base.BaseActivity;
+import com.bobbyzhang.bestblog.bean.ArticleBean;
 import com.bobbyzhang.bestblog.bean.ColumnBean;
+import com.bobbyzhang.bestblog.customview.NoScrollViewPager;
 import com.bobbyzhang.bestblog.utils.JsonUtil;
 import com.google.gson.Gson;
 
@@ -28,12 +30,13 @@ import butterknife.ButterKnife;
 public class HomeActivity extends BaseActivity implements
         ColumnFragment.OnListFragmentInteractionListener,
         FavoriteFragment.OnListFragmentInteractionListener,
-        AboutmeFragment.OnFragmentInteractionListener
+        AboutmeFragment.OnFragmentInteractionListener,
+        ViewPager.OnPageChangeListener
 {
 
     private static Boolean isExit = false;
     @BindView(R.id.vp_ha)
-    ViewPager vp_ha;
+    NoScrollViewPager vp_ha;
 
     private JsonUtil mHelper;
 
@@ -67,15 +70,20 @@ public class HomeActivity extends BaseActivity implements
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         mHelper=new JsonUtil();
-        String data=mHelper.ReadJson(getApplicationContext(),"bestblog_columns.json");
-        Gson mGson=new Gson();
-        ColumnBean columnBean=mGson.fromJson(data,ColumnBean.class);
-        Log.e("@xun",columnBean.getColumns().get(0).getRemark());
+        Gson columnGson=new Gson();
+        String columnData=mHelper.ReadJson(getApplicationContext(),"bestblog_columns.json");
+        ColumnBean columnBean=columnGson.fromJson(columnData,ColumnBean.class);
+        Log.e("@xun-c",columnBean.getColumns().get(0).getRemark());
+
+        Gson articleGson=new Gson();
+        String articleData=mHelper.ReadJson(getApplicationContext(),"bestblog_article.json");
+        ArticleBean articleBean=articleGson.fromJson(articleData,ArticleBean.class);
+        Log.e("@xun-a",articleBean.getArticles().get(0).getTitle());
 
 
         final ArrayList<Fragment> fgLists = new ArrayList<>(3);
         fgLists.add(new ColumnFragment(columnBean.getColumns()));
-        fgLists.add(new FavoriteFragment());
+        fgLists.add(new FavoriteFragment(articleBean.getArticles()));
         fgLists.add(new AboutmeFragment());
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -90,7 +98,8 @@ public class HomeActivity extends BaseActivity implements
         };
         vp_ha.setAdapter(mAdapter);
         vp_ha.setOffscreenPageLimit(2); //预加载剩下两页
-
+        vp_ha.addOnPageChangeListener(this);
+        vp_ha.setNoScroll(true);
 
     }
 
@@ -146,7 +155,25 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(ArticleBean.ArticlesBean articlesBean) {
+        Intent intent=new Intent();
+        intent.setClass(HomeActivity.this,ColumnDetailsActivity.class);
+        intent.putExtra("url",articlesBean.getUrl());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        vp_ha.setCurrentItem(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

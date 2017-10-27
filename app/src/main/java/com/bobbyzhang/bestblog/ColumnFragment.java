@@ -1,5 +1,6 @@
 package com.bobbyzhang.bestblog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * 专栏页面
  */
+@SuppressLint("ValidFragment")
 public class ColumnFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";

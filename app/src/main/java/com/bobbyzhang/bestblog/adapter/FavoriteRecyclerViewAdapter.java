@@ -7,22 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bobbyzhang.bestblog.FavoriteFragment.OnListFragmentInteractionListener;
-import com.bobbyzhang.bestblog.DummyContent.DummyItem;
 import com.bobbyzhang.bestblog.R;
+import com.bobbyzhang.bestblog.bean.ArticleBean;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<ArticleBean.ArticlesBean> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public FavoriteRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public FavoriteRecyclerViewAdapter(List<ArticleBean.ArticlesBean> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -35,17 +30,14 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.title.setText(mValues.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(mValues.get(position));
                 }
             }
         });
@@ -58,18 +50,17 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView title;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.tv_ia_title);
+            title = (TextView) view.findViewById(R.id.tv_ia_title);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString();
         }
     }
 }

@@ -25,6 +25,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bobbyzhang.bestblog.utils.NetUtil;
 import com.bobbyzhang.bestblog.utils.SnackbarUtil;
@@ -78,13 +79,13 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
         ButterKnife.bind(this);
         mNetUtil =new NetUtil();
 
-        populateAutoComplete();
+//        populateAutoComplete();
 
         et_au_remark.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+//                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -381,10 +382,11 @@ public class AddActivity extends AppCompatActivity implements LoaderCallbacks<Cu
                             }
                         }
                     }).start();
-
                 }
                 break;
             case R.id.bt_au_submit:
+                Toast.makeText(getApplicationContext(),"添加功能内测中稍后见",Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }
