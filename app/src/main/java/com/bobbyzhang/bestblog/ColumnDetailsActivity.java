@@ -19,6 +19,7 @@ import butterknife.OnClick;
 
 /**
  * Created by bumiemac001 on 2017/9/13.
+ * 博客页面，通用的webview加载界面
  */
 
 public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
@@ -41,7 +42,6 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_column);
         ButterKnife.bind(this);
 
@@ -58,13 +58,13 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
         webView.requestFocus();
         webView.getSettings().setJavaScriptEnabled(true);//支持js
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        //更多拓展见http://blog.itbobby.top/2017-09-02-关于WebSettings-CacheMode的一些理解.html
         webView.loadUrl(url);
 
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
                 //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
                 view.loadUrl(url);
                 return true;
@@ -75,7 +75,6 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                // TODO Auto-generated method stub
                 if (newProgress == 100) {
                     // 网页加载完成
                     Log.e(TAG,"完成");
@@ -85,7 +84,6 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
                     // 加载中
                     Log.e(TAG,"加载中");
                 }
-
             }
 
             @Override
@@ -97,6 +95,12 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
     }
 
 
+    /**
+     * 更改手机的返回键在web下为返回网页上一级
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -112,6 +116,9 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
     }
 
 
+    /**
+     * 手动刷新的时长设置为2秒
+     */
     @Override
     public void onRefresh() {
         srf_ac.postDelayed(new Runnable() {
@@ -123,6 +130,13 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
     }
 
 
+    /**
+     * @param view
+     * fab_home:退出web
+     * fab_start:标星
+     * fab_startok:取消标星
+     * fab_up:返回顶部
+     */
     @OnClick({R.id.fab_home,R.id.fab_start,R.id.fab_startok,
             R.id.fab_up})
     public void onClick(View view){
@@ -143,6 +157,4 @@ public class ColumnDetailsActivity extends AppCompatActivity implements SwipeRef
                 break;
         }
     }
-
-
 }

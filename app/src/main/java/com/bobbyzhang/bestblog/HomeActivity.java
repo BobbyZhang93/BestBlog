@@ -27,6 +27,11 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by bumiemac001 on 2017/9/13.
+ * 主界面
+ */
+
 public class HomeActivity extends BaseActivity implements
         ColumnFragment.OnListFragmentInteractionListener,
         FavoriteFragment.OnListFragmentInteractionListener,
@@ -104,16 +109,21 @@ public class HomeActivity extends BaseActivity implements
     }
 
 
-    //改写物理按键——返回的逻辑
+    /**
+     * 改写物理按键——返回的逻辑
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if(keyCode==KeyEvent.KEYCODE_BACK)
         {
                 exitBy2Click(); // 调用双击退出函数
         }
         return false;
     }
+
 
     /**
      * 双击退出函数
@@ -137,11 +147,8 @@ public class HomeActivity extends BaseActivity implements
         }
     }
 
-
-
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
@@ -151,7 +158,6 @@ public class HomeActivity extends BaseActivity implements
         intent.putExtra("remark",columnsBean.getRemark());
         intent.putExtra("url",columnsBean.getUrl());
         startActivity(intent);
-
     }
 
     @Override
@@ -164,7 +170,6 @@ public class HomeActivity extends BaseActivity implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
@@ -174,6 +179,5 @@ public class HomeActivity extends BaseActivity implements
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 }

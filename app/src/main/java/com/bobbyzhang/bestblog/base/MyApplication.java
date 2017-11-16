@@ -13,6 +13,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Crasheye.init(this, "0b24e040");
+        Crasheye.init(this, "0b24e040");//接入crasheye
     }
 }

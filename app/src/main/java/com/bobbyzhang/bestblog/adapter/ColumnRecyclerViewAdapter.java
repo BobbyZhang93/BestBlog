@@ -13,6 +13,7 @@ import com.bobbyzhang.bestblog.bean.ColumnBean;
 import java.util.List;
 
 /**
+ * Created by BobbyZhang on 2017/9/13.
  * 专栏列表适配器
  */
 public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecyclerViewAdapter.ViewHolder> {

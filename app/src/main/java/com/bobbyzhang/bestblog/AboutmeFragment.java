@@ -12,23 +12,21 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by BobbyZhang on 2017/9/13.
+ * 看我页面
+ */
 
 public class AboutmeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-
-
     public AboutmeFragment() {
-        // Required empty public constructor
     }
 
     public static AboutmeFragment newInstance(String param1, String param2) {
@@ -52,8 +50,6 @@ public class AboutmeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_aboutme, container, false);
         //返回一个Unbinder值（进行解绑），注意这里的this不能使用getActivity()
         ButterKnife.bind(this, view);

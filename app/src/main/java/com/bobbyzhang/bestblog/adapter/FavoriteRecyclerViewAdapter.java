@@ -12,6 +12,11 @@ import com.bobbyzhang.bestblog.bean.ArticleBean;
 
 import java.util.List;
 
+/**
+ * Created by BobbyZhang on 2017/9/13.
+ * 收藏列表适配器
+ */
+
 public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRecyclerViewAdapter.ViewHolder> {
 
     private final List<ArticleBean.ArticlesBean> mValues;

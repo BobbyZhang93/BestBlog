@@ -15,6 +15,11 @@ import com.bobbyzhang.bestblog.bean.ArticleBean;
 
 import java.util.List;
 
+/**
+ * Created by bumiemac001 on 2017/9/13.
+ * 收藏文章页面
+ */
+
 @SuppressLint("ValidFragment")
 public class FavoriteFragment extends Fragment {
 
@@ -29,7 +34,6 @@ public class FavoriteFragment extends Fragment {
         this.mList=articlesList;
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static FavoriteFragment newInstance(int columnCount) {
         FavoriteFragment fragment = new FavoriteFragment();

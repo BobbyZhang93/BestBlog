@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
+ * 自定义viewpager，去除滑动效果
  * Created by BobbyZhang on 2017/10/26.
  */
 
@@ -14,7 +15,6 @@ public class NoScrollViewPager extends ViewPager {
 
     public NoScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // TODO Auto-generated constructor stub
     }
 
     public NoScrollViewPager(Context context) {
@@ -32,11 +32,8 @@ public class NoScrollViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent arg0) {
-            /* return false;//super.onTouchEvent(arg0); */
         switch(arg0.getAction()){
         }
-
-
         return !noScroll && super.onTouchEvent(arg0);
     }
 
@@ -50,10 +47,12 @@ public class NoScrollViewPager extends ViewPager {
         super.setCurrentItem(item, smoothScroll);
     }
 
+    /**
+     * 去除滚动效果
+     * @param item
+     */
     @Override
     public void setCurrentItem(int item) {
-        //false 去除滚动效果
         super.setCurrentItem(item,false);
     }
-
 }

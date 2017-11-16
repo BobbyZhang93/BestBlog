@@ -16,6 +16,7 @@ import com.bobbyzhang.bestblog.bean.ColumnBean;
 import java.util.List;
 
 /**
+ * Created by bumiemac001 on 2017/9/13.
  * 专栏页面
  */
 @SuppressLint("ValidFragment")
@@ -31,7 +32,6 @@ public class ColumnFragment extends Fragment {
 
     public ColumnFragment(List columnList) {
         this.mList=columnList;
-
     }
 
     @SuppressWarnings("unused")
@@ -84,7 +84,6 @@ public class ColumnFragment extends Fragment {
 
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(ColumnBean.ColumnsBean columnsBean);
     }
 }
