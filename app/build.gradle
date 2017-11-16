@@ -32,6 +32,15 @@ android {
     }
     productFlavors {
     }
+
+    //为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions{
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -50,4 +59,33 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     compile files('libs/crasheye_2.2.2.jar')
+    // LeanCloud 基础包
+    compile 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
+    // avoscloud-sns：LeanCloud 第三方登录包
+    compile 'cn.leancloud.android:avoscloud-sns:v4.4.4@aar'
+    compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
+    compile files('libs/weibo.sdk.android.sso.3.0.1-leancloud.jar')
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        //这里是 LeanCloud 的包仓库
+        maven {
+            url "http://mvn.leancloud.cn/nexus/content/repositories/public"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        //这里是 LeanCloud 的包仓库
+        maven {
+            url "http://mvn.leancloud.cn/nexus/content/repositories/public"
+        }
+    }
 }

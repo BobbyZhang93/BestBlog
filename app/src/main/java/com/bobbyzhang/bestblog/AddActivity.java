@@ -70,7 +70,7 @@ public class AddActivity extends AppCompatActivity {
                     }).start();
                 }
                 break;
-            case R.id.bt_au_submit://存在潜在问题
+            case R.id.bt_au_submit://存在潜在未测出的问题
                 if(et_au_remark.getText().toString()==""||et_au_remark.getText().toString()==null){
                     SnackbarUtil.ShortSnackbar(ll_au,"请完善表单后提交",SnackbarUtil.Info).show();
                 }else{
