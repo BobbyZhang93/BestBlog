@@ -39,9 +39,19 @@
             android:name=".AddActivity"
             android:label="@string/title_activity_add" />
 
-        <!--leancloud第三方登录-->
-        <activity
-            android:name="com.avos.sns.SNSWebActivity" >
+        <!--leancloud第三方登录，微博登录弃用-->
+        <!--<activity-->
+            <!--android:name="com.avos.sns.SNSWebActivity" >-->
+        <!--</activity>-->
+        <activity android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="1106425655"/>
+            </intent-filter>
         </activity>
     </application>
 
