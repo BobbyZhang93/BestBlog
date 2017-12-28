@@ -21,4 +21,5 @@
         completions."
     </string>
     <string name="title_activity_add_url">Sign in</string>
+    <string name="title_activity_login">Sign in</string>
 </resources>
