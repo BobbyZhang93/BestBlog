@@ -1,5 +1,6 @@
 package com.bobbyzhang.bestblog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,10 @@ import com.bobbyzhang.bestblog.bean.ColumnBean;
 import java.util.List;
 
 /**
+ * Created by bumiemac001 on 2017/9/13.
  * 专栏页面
  */
+@SuppressLint("ValidFragment")
 public class ColumnFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -29,7 +32,6 @@ public class ColumnFragment extends Fragment {
 
     public ColumnFragment(List columnList) {
         this.mList=columnList;
-
     }
 
     @SuppressWarnings("unused")
@@ -82,7 +84,6 @@ public class ColumnFragment extends Fragment {
 
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(ColumnBean.ColumnsBean columnsBean);
     }
 }

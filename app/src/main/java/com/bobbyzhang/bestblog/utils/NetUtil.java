@@ -21,6 +21,11 @@ public class NetUtil {
 
     }
 
+    /**
+     * 网络状态检测
+     * @param context
+     * @return
+     */
     public boolean checkNetWorkStatus(Context context){
         boolean result;
         ConnectivityManager cm=(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,6 +40,11 @@ public class NetUtil {
         return result;
     }
 
+    /**
+     * url连通性检测
+     * @param url
+     * @return
+     */
     public boolean checkURL(String url){
         boolean value=false;
         try {

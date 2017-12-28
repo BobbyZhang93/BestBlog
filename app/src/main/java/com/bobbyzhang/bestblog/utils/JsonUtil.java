@@ -11,25 +11,31 @@ import java.io.InputStream;
  * Created by BobbyZhang on 2017/9/16.
  */
 
+
 public class JsonUtil {
 
-    public String ReadJson(Context context,String fileName){
+    /**
+     * 用以读取本地json，接入后台以后可废弃
+     * @param context
+     * @param fileName
+     * @return
+     */
+    public String ReadJson(Context context, String fileName) {
         Context mContext;
         String test_package = "com.bobbyzhang.bestblog";
         String jsonResult = null;
-        try
-        {
+        try {
             mContext = context.createPackageContext(
                     test_package, Context.CONTEXT_IGNORE_SECURITY);
-            AssetManager s =  mContext.getAssets();
-            try{
+            AssetManager s = mContext.getAssets();
+            try {
                 InputStream is = s.open(fileName);
-                byte [] buffer = new byte[is.available()] ;
+                byte[] buffer = new byte[is.available()];
                 is.read(buffer);
-                String json = new String(buffer,"utf-8");
+                String json = new String(buffer, "utf-8");
                 is.close();
-                jsonResult=json;
-            }catch(IOException e){
+                jsonResult = json;
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -37,6 +43,4 @@ public class JsonUtil {
         }
         return jsonResult;
     }
-
-
 }

@@ -12,7 +12,8 @@ import com.bobbyzhang.bestblog.R;
 
 /**
  * Created by BobbyZhang on 2017/10/25.
- * 来源http://www.jianshu.com/p/cd1e80e64311/鸣谢作者
+ * Snackbar自定义
+ * 来源：http://www.jianshu.com/p/cd1e80e64311/ 特此鸣谢
  */
 
 public class SnackbarUtil {
@@ -109,7 +110,11 @@ public class SnackbarUtil {
         return snackbar;
     }
 
-    //选择预设类型
+    /**
+     * 选择预设类型
+     * @param snackbar
+     * @param type
+     */
     private static void switchType(Snackbar snackbar,int type){
         switch (type){
             case Info:

@@ -19,9 +19,9 @@ public class ArticleBean {
 
     public static class ArticlesBean {
         /**
-         * uuid : 550e8400-e29b-41d4-a716-446655440000
-         * url : http://blog.itbobby.top/
-         * remark : BobbyZhang的博客
+         * "uuid": "890e8400-e29b-41d4-a716-446655442222",
+         * "url": "http://stormzhang.com/2017/07/05/kotlin-and-deep-learning-reference/",
+         * "title": "推荐两份学习 KOTLIN 和机器学习的资料"
          */
 
         private String uuid;

@@ -10,14 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bobbyzhang.bestblog.AddActivity">
 
-    <ProgressBar
-        android:id="@+id/pb_au"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -52,7 +44,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="专栏标题或自定义备注"
-                    android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:maxLines="1"
