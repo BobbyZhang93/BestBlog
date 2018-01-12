@@ -137,6 +137,7 @@ public class AboutmeFragment extends Fragment {
                     ThirdPartyType = SNSType.AVOSCloudSNSQQ;
                     SNS.setupPlatform(getActivity(), SNSType.AVOSCloudSNSQQ, "1106425655", "t851Dudi2VeVtnE8", "http://blog.itbobby.top/");
                     SNS.loginWithCallback(getActivity(), SNSType.AVOSCloudSNSQQ, myCallback);
+                    Log.e("@xun","bt_QQLogin");
                 } catch (AVException e) {
                     e.printStackTrace();
                     Log.e("@xun",e.getMessage());

@@ -19,13 +19,24 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // 测试 SDK 是否正常工作的代码
-        AVObject testObject = new AVObject("TestObject");
-        testObject.put("words","Hello World!");
+//        AVObject testObject = new AVObject("TestObject");
+//        testObject.put("words","Hello World!");
+//        testObject.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(AVException e) {
+//                if(e == null){
+//                    Log.d("saved","success!");
+//                }
+//            }
+//        });
+
+        AVObject testObject = new AVObject("user");
+        testObject.put("username","BobbyZhang");
         testObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
                 if(e == null){
-                    Log.d("saved","success!");
+                    Log.e("saved","success!");
                 }
             }
         });
